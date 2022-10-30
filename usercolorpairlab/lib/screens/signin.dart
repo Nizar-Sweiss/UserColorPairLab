@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, constant_identifier_names
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:usercolorpairlab/screens/signup.dart';
 
@@ -26,7 +27,22 @@ class _SignInState extends State<SignIn> {
               _SignInText,
               _TextFormField(_EmailController, _EmailHintText),
               _TextFormField(_PassController, _PassHintText),
-              ElevatedButton(onPressed: () {}, child: const Text("Sign In")),
+              ElevatedButton(
+                  onPressed: () async {
+                    try {
+                      final credential = await FirebaseAuth.instance
+                          .signInWithEmailAndPassword(
+                              email: _EmailController.text,
+                              password: _PassController.text);
+                    } on FirebaseAuthException catch (e) {
+                      if (e.code == 'user-not-found') {
+                        print('No user found for that email.');
+                      } else if (e.code == 'wrong-password') {
+                        print('Wrong password provided for that user.');
+                      }
+                    }
+                  },
+                  child: const Text("Sign In")),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

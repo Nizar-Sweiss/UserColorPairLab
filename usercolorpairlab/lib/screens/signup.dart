@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, constant_identifier_names, unused_element
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignUp extends StatefulWidget {
@@ -29,7 +30,26 @@ class _SignUpState extends State<SignUp> {
               _TextFormField(_EmailController, _EmailHintText),
               _TextFormField(_PassController, _PassHintText),
               _TextFormField(_ColorController, _ColorHintText),
-              ElevatedButton(onPressed: () {}, child: const Text("Sign Up")),
+              ElevatedButton(
+                  onPressed: () async {
+                    try {
+                      final credential = await FirebaseAuth.instance
+                          .createUserWithEmailAndPassword(
+                        email: _EmailController.text,
+                        password: _PassController.text,
+                      );
+                    } on FirebaseAuthException catch (e) {
+                      if (e.code == 'weak-password') {
+                        print('The password provided is too weak.');
+                      } else if (e.code == 'email-already-in-use') {
+                        print('The account already exists for that email.');
+                      }
+                    } catch (e) {
+                      print(e);
+                    }
+                    debugPrint("SignUp Preesed");
+                  },
+                  child: const Text("Sign Up")),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
