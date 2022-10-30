@@ -1,24 +1,26 @@
-// ignore_for_file: non_constant_identifier_names, constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, constant_identifier_names, unused_element
 
 import 'package:flutter/material.dart';
-import 'package:usercolorpairlab/screens/signup.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<SignUp> createState() => _SignUpState();
 }
 
 TextEditingController _EmailController = TextEditingController();
 TextEditingController _PassController = TextEditingController();
+TextEditingController _ColorController = TextEditingController();
 const String _EmailHintText = "Email";
 const String _PassHintText = "Password";
+const String _ColorHintText = "Color";
 
-class _SignInState extends State<SignIn> {
+class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.red.shade100,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -26,20 +28,17 @@ class _SignInState extends State<SignIn> {
               _SignInText,
               _TextFormField(_EmailController, _EmailHintText),
               _TextFormField(_PassController, _PassHintText),
-              ElevatedButton(onPressed: () {}, child: const Text("Sign In")),
+              _TextFormField(_ColorController, _ColorHintText),
+              ElevatedButton(onPressed: () {}, child: const Text("Sign Up")),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text("Dont Have an Account,"),
+                  const Text("Have an Account,"),
                   TextButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SignUp()),
-                        );
+                        Navigator.pop(context);
                       },
-                      child: const Text("Sign Up"))
+                      child: const Text("Sign In"))
                 ],
               )
             ],
@@ -65,5 +64,5 @@ class _SignInState extends State<SignIn> {
 
 var _SignInText = const Center(
   heightFactor: 18,
-  child: Text("Sign In"),
+  child: Text("Sign Up"),
 );
