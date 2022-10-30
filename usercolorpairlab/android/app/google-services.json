@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1093131274377",
+    "project_id": "usercolorpairlab",
+    "storage_bucket": "usercolorpairlab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1093131274377:android:f6aab045282ad05a601e58",
+        "android_client_info": {
+          "package_name": "com.example.usercolorpairlab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1093131274377-fvngpo2d4bljjrq2t64ngqp6futiqrfb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDt5QZMXDCGQPYL1hBYLfrIIl2jKNM7yf8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1093131274377-fvngpo2d4bljjrq2t64ngqp6futiqrfb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
