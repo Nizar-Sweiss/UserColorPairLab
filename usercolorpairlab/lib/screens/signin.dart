@@ -15,8 +15,18 @@ TextEditingController _EmailController = TextEditingController();
 TextEditingController _PassController = TextEditingController();
 const String _EmailHintText = "Email";
 const String _PassHintText = "Password";
+Future _logout() async {
+  await FirebaseAuth.instance.signOut();
+  print("current user: ${FirebaseAuth.instance.currentUser}");
+}
 
 class _SignInState extends State<SignIn> {
+  @override
+  void initState() {
+    _logout();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,8 +42,9 @@ class _SignInState extends State<SignIn> {
                     try {
                       final credential = await FirebaseAuth.instance
                           .signInWithEmailAndPassword(
-                              email: _EmailController.text,
-                              password: _PassController.text);
+                        email: _EmailController.text,
+                        password: _PassController.text,
+                      );
                     } on FirebaseAuthException catch (e) {
                       if (e.code == 'user-not-found') {
                         print('No user found for that email.');
@@ -41,6 +52,11 @@ class _SignInState extends State<SignIn> {
                         print('Wrong password provided for that user.');
                       }
                     }
+                    if (FirebaseAuth.instance.currentUser != null) {
+                      print("user is NOT null");
+                    }
+                    print(
+                        "current user: ${FirebaseAuth.instance.currentUser?.email ?? "lol"}");
                   },
                   child: const Text("Sign In")),
               Row(
@@ -57,6 +73,13 @@ class _SignInState extends State<SignIn> {
                       },
                       child: const Text("Sign Up"))
                 ],
+              ),
+              InkWell(
+                onTap: () {
+                  _EmailController.text = "a@a.com";
+                  _PassController.text = "12341234";
+                },
+                child: const Chip(label: Text("a@a")),
               )
             ],
           ),
