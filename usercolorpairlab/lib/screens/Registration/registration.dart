@@ -21,6 +21,7 @@ String getColorHintText() {
 
 Future logout() async {
   await FirebaseAuth.instance.signOut();
+  clearEmailPassColor_Controllers();
   // print("current user: ${FirebaseAuth.instance.currentUser}");
 }
 

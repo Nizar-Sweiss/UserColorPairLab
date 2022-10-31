@@ -62,7 +62,20 @@ Future<void> signIn(BuildContext context) async {
 }
 
 void addUser(Map<String, dynamic> user) {
-  MyFireBaseFunctions.db.collection("users").add(user).then(
-      (DocumentReference doc) =>
-          print('DocumentSnapshot added with ID: ${doc.id}'));
+  MyFireBaseFunctions.db
+      .collection("users")
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .set(user)
+      .onError((e, _) => print("Error writing document: $e"));
+}
+
+// Future<DocumentSnapshot<Map<String, dynamic>>>
+getUser(var userID) {
+  print("UserID: $userID");
+  final docRef =
+      MyFireBaseFunctions.db.collection("users").doc("Q0L8f700lvVc08kAXV9q");
+  return docRef.snapshots().listen(
+        (event) => print("current data: ${event.data()}"),
+        onError: (error) => print("Listen failed: $error"),
+      );
 }

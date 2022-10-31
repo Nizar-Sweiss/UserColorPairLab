@@ -24,6 +24,10 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
+    // Registration.emailController.text = "a@a.com";
+    // Registration.passController.text = "12341234";
+    // signIn(context);
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -35,7 +39,6 @@ class _SignInState extends State<SignIn> {
               ElevatedButton(
                   onPressed: () async {
                     signIn(context);
-                    clearEmailPassColor_Controllers();
                   },
                   child: const Text("Sign In")),
               Row(

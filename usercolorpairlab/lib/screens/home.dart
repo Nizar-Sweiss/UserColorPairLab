@@ -1,6 +1,8 @@
 // ignore_for_file: unused_import
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:usercolorpairlab/FireBase/firebase_functions.dart';
 import 'package:usercolorpairlab/screens/Registration/registration.dart';
 import 'package:usercolorpairlab/screens/Registration/signin.dart';
 import 'dart:math' as math;
@@ -35,10 +37,13 @@ class _HomeState extends State<Home> {
       ),
       appBar: AppBar(),
       body: Column(
-        children: const [
+        children: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-            child: Text("Hello"),
+            child: Text(
+              getUser(FirebaseAuth.instance.currentUser!.uid).toString(),
+              style: TextStyle(fontSize: 30),
+            ),
           ),
           Padding(padding: EdgeInsets.only(top: 30)),
         ],
