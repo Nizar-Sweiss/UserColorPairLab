@@ -2,7 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:usercolorpairlab/screens/signup.dart';
+import 'package:usercolorpairlab/screens/Registration/signup.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
