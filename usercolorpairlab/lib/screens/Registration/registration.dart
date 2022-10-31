@@ -23,3 +23,9 @@ Future logout() async {
   await FirebaseAuth.instance.signOut();
   // print("current user: ${FirebaseAuth.instance.currentUser}");
 }
+
+void clearEmailPassColor_Controllers() {
+  Registration.emailController.clear();
+  Registration.passController.clear();
+  Registration.colorController.clear();
+}

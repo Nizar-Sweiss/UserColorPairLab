@@ -38,7 +38,6 @@ Future<void> signUp({
     };
     addUser(user);
   }
-
   if (isSignedUpSuccessfully && withAutoSignIn) {
     signIn(context);
   }
@@ -58,10 +57,7 @@ Future<void> signIn(BuildContext context) async {
     }
   }
   if (FirebaseAuth.instance.currentUser != null) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const Home()),
-    );
+    Navigator.pushReplacementNamed(context, '/home');
   }
 }
 

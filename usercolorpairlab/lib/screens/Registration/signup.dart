@@ -27,6 +27,7 @@ class _SignUpState extends State<SignUp> {
               ElevatedButton(
                   onPressed: () async {
                     signUp(context: context, withAutoSignIn: true);
+                    clearEmailPassColor_Controllers();
                   },
                   child: const Text("Sign Up")),
               Row(
@@ -35,7 +36,7 @@ class _SignUpState extends State<SignUp> {
                   const Text("Have an Account,"),
                   TextButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        Navigator.of(context).pop();
                       },
                       child: const Text("Sign In"))
                 ],

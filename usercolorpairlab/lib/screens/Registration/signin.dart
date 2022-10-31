@@ -35,6 +35,7 @@ class _SignInState extends State<SignIn> {
               ElevatedButton(
                   onPressed: () async {
                     signIn(context);
+                    clearEmailPassColor_Controllers();
                   },
                   child: const Text("Sign In")),
               Row(
@@ -43,11 +44,7 @@ class _SignInState extends State<SignIn> {
                   const Text("Dont Have an Account,"),
                   TextButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SignUp()),
-                        );
+                        Navigator.of(context).pushNamed('/signup');
                       },
                       child: const Text("Sign Up"))
                 ],

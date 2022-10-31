@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
-import 'dart:math' as math;
+// ignore_for_file: unused_import
 
+import 'package:flutter/material.dart';
 import 'package:usercolorpairlab/screens/Registration/registration.dart';
 import 'package:usercolorpairlab/screens/Registration/signin.dart';
+import 'dart:math' as math;
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -14,16 +15,14 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    print("emailController: ${Registration.emailController.text}");
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue,
         onPressed: () {
           logout();
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const SignIn()),
-          );
+          Navigator.of(context).pushReplacementNamed('/');
         },
         tooltip: "Sign Out",
         child: Transform.rotate(
