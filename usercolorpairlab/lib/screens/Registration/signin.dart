@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:usercolorpairlab/screens/Registration/signup.dart';
 
+import '../home.dart';
+
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
 
@@ -53,10 +55,11 @@ class _SignInState extends State<SignIn> {
                       }
                     }
                     if (FirebaseAuth.instance.currentUser != null) {
-                      print("user is NOT null");
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const Home()),
+                      );
                     }
-                    print(
-                        "current user: ${FirebaseAuth.instance.currentUser?.email ?? "lol"}");
                   },
                   child: const Text("Sign In")),
               Row(
