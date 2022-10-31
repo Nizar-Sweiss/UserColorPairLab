@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:usercolorpairlab/screens/Registration/signin.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:usercolorpairlab/screens/Registration/signup.dart';
+import 'package:usercolorpairlab/screens/home.dart';
 import 'FireBase/firebase_options.dart';
 
 Future<void> main() async {

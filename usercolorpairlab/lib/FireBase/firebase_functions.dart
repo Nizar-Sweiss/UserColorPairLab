@@ -1,21 +1,24 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:usercolorpairlab/screens/Registration/signin.dart';
 
+import '../screens/Registration/registration.dart';
 import '../screens/home.dart';
 
 class MyFireBaseFunctions {
-  static TextEditingController emailController = TextEditingController();
-  static TextEditingController passController = TextEditingController();
+  static FirebaseFirestore db = FirebaseFirestore.instance;
 }
 
-Future<void> signUp({bool withAutoSignIn = false}) async {
+Future<void> signUp({
+  required BuildContext context,
+  bool withAutoSignIn = false,
+}) async {
   bool isSignedUpSuccessfully = withAutoSignIn;
   try {
     final credential =
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: MyFireBaseFunctions.emailController.text,
-      password: MyFireBaseFunctions.passController.text,
+      email: Registration.emailController.text,
+      password: Registration.passController.text,
     );
     isSignedUpSuccessfully = true;
   } on FirebaseAuthException catch (e) {
@@ -27,17 +30,25 @@ Future<void> signUp({bool withAutoSignIn = false}) async {
   } catch (e) {
     print(e);
   }
+  if (isSignedUpSuccessfully) {
+    Map<String, dynamic> user = {
+      "email": Registration.emailController.text,
+      "role": "user",
+      "color": Registration.colorController.text,
+    };
+    addUser(user);
+  }
 
   if (isSignedUpSuccessfully && withAutoSignIn) {
-    // signIn();
+    signIn(context);
   }
 }
 
 Future<void> signIn(BuildContext context) async {
   try {
     final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: MyFireBaseFunctions.emailController.text,
-      password: MyFireBaseFunctions.passController.text,
+      email: Registration.emailController.text,
+      password: Registration.passController.text,
     );
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
@@ -52,4 +63,10 @@ Future<void> signIn(BuildContext context) async {
       MaterialPageRoute(builder: (context) => const Home()),
     );
   }
+}
+
+void addUser(Map<String, dynamic> user) {
+  MyFireBaseFunctions.db.collection("users").add(user).then(
+      (DocumentReference doc) =>
+          print('DocumentSnapshot added with ID: ${doc.id}'));
 }
