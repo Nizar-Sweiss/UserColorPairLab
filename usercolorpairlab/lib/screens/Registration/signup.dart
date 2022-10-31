@@ -1,7 +1,8 @@
-// ignore_for_file: non_constant_identifier_names, constant_identifier_names, unused_element
+// ignore_for_file: non_constant_identifier_names, constant_identifier_names, unused_element, unused_import
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:usercolorpairlab/FireBase/firebase_functions.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -10,8 +11,6 @@ class SignUp extends StatefulWidget {
   State<SignUp> createState() => _SignUpState();
 }
 
-TextEditingController _EmailController = TextEditingController();
-TextEditingController _PassController = TextEditingController();
 TextEditingController _ColorController = TextEditingController();
 const String _EmailHintText = "Email";
 const String _PassHintText = "Password";
@@ -27,27 +26,14 @@ class _SignUpState extends State<SignUp> {
           child: Column(
             children: [
               _SignInText,
-              _TextFormField(_EmailController, _EmailHintText),
-              _TextFormField(_PassController, _PassHintText),
+              _TextFormField(
+                  MyFireBaseFunctions.emailController, _EmailHintText),
+              _TextFormField(MyFireBaseFunctions.passController, _PassHintText),
               _TextFormField(_ColorController, _ColorHintText),
               ElevatedButton(
                   onPressed: () async {
-                    try {
-                      final credential = await FirebaseAuth.instance
-                          .createUserWithEmailAndPassword(
-                        email: _EmailController.text,
-                        password: _PassController.text,
-                      );
-                    } on FirebaseAuthException catch (e) {
-                      if (e.code == 'weak-password') {
-                        print('The password provided is too weak.');
-                      } else if (e.code == 'email-already-in-use') {
-                        print('The account already exists for that email.');
-                      }
-                    } catch (e) {
-                      print(e);
-                    }
-                    debugPrint("SignUp Preesed");
+                    signUp();
+                    // if(FirebaseAuth.instance.)
                   },
                   child: const Text("Sign Up")),
               Row(

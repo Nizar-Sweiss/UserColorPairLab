@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:usercolorpairlab/FireBase/firebase_functions.dart';
 import 'package:usercolorpairlab/screens/Registration/signup.dart';
 
 import '../home.dart';
@@ -13,13 +14,11 @@ class SignIn extends StatefulWidget {
   State<SignIn> createState() => _SignInState();
 }
 
-TextEditingController _EmailController = TextEditingController();
-TextEditingController _PassController = TextEditingController();
 const String _EmailHintText = "Email";
 const String _PassHintText = "Password";
 Future _logout() async {
   await FirebaseAuth.instance.signOut();
-  print("current user: ${FirebaseAuth.instance.currentUser}");
+  // print("current user: ${FirebaseAuth.instance.currentUser}");
 }
 
 class _SignInState extends State<SignIn> {
@@ -37,29 +36,12 @@ class _SignInState extends State<SignIn> {
           child: Column(
             children: [
               _SignInText,
-              _TextFormField(_EmailController, _EmailHintText),
-              _TextFormField(_PassController, _PassHintText),
+              _TextFormField(
+                  MyFireBaseFunctions.emailController, _EmailHintText),
+              _TextFormField(MyFireBaseFunctions.passController, _PassHintText),
               ElevatedButton(
                   onPressed: () async {
-                    try {
-                      final credential = await FirebaseAuth.instance
-                          .signInWithEmailAndPassword(
-                        email: _EmailController.text,
-                        password: _PassController.text,
-                      );
-                    } on FirebaseAuthException catch (e) {
-                      if (e.code == 'user-not-found') {
-                        print('No user found for that email.');
-                      } else if (e.code == 'wrong-password') {
-                        print('Wrong password provided for that user.');
-                      }
-                    }
-                    if (FirebaseAuth.instance.currentUser != null) {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => const Home()),
-                      );
-                    }
+                    signIn(context);
                   },
                   child: const Text("Sign In")),
               Row(
@@ -79,8 +61,8 @@ class _SignInState extends State<SignIn> {
               ),
               InkWell(
                 onTap: () {
-                  _EmailController.text = "a@a.com";
-                  _PassController.text = "12341234";
+                  MyFireBaseFunctions.emailController.text = "a@a.com";
+                  MyFireBaseFunctions.passController.text = "12341234";
                 },
                 child: const Chip(label: Text("a@a")),
               )
